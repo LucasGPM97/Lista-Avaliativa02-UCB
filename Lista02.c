@@ -29,24 +29,25 @@ int main(){
 
     struct Professor{
         char nome[50];
-        char funcional[15];
-        char titulacao[12];
+        char funcional[20];
+        char titulacao[15];
     };
 
-/*     struct Disciplina{
+    struct Disciplina{
         char nome[50];
         int codigo;
         int carga_horaria;
         char professor_responsavel[50];
     };
-
+/* 
     struct Estudante{
         char nome[50];
         char matricula[30];
         int idade;
-    }; */
-
+    };
+ */
     struct Professor professor[3];
+    struct Disciplina disciplina[2];
 
     int i=0, opcao=0;
 
@@ -61,10 +62,10 @@ int main(){
         printf("\t[1] Especialista\n");
         printf("\t[2] Mestre\n");
         printf("\t[3] Doutor\n");
-        printf("Opcao: ");
+        printf("Opcao:   ");
         scanf("%d", &opcao);
-        switch (opcao)
-        {
+
+        switch (opcao){
         case 1 :
             strcpy(professor[i].titulacao, "Especialista");
             break;
@@ -79,17 +80,38 @@ int main(){
         
     }
 
-
-/*     
     printf("\n\nCadastro Disciplina\n");
-    printf("\n\nCadastro Estudante\n");
 
-
-
- */
-
+    for(i=0;i<2;i++){
+        printf("Nome: ");
+        scanf(" %[^\n]s", &disciplina[i].nome);
+        printf("Codigo: ");
+        scanf("%d", &disciplina[i].codigo);
+        printf("Carga Horaria: ");
+        scanf("%d", &disciplina[i].carga_horaria);
+        printf("Professor Responsavel\n");
+        printf("\t[1]%s\n", professor[0].nome);
+        printf("\t[2]%s\n", professor[1].nome);
+        printf("\t[3]%s\n", professor[2].nome);
+        printf("Escolha: ");
+        scanf("%d", &opcao);
         
+        switch (opcao){
+        case 1 :
+            strcpy(disciplina[i].professor_responsavel, professor[0].nome);
+            break;
+        
+        case 2 :
+            strcpy(disciplina[i].professor_responsavel, professor[1].nome);
+            break;
+        case 3 :
+            strcpy(disciplina[i].professor_responsavel, professor[2].nome);
+            break;
+        }
+                
+    }
 
+/*     printf("\n\nCadastro Estudante\n"); */
 
     return 0;
 }

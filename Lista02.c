@@ -24,6 +24,7 @@ Entrada:    Professor   {
 #include <stdio.h>
 #include <string.h>
 
+int le_valida_idade();
 
 int main(){
 
@@ -111,11 +112,28 @@ int main(){
                 
     }
 
-/*     printf("\n\nCadastro Estudante\n"); */
+    printf("\n\nCadastro Estudante\n");
+
+
 
     return 0;
 }
 
+int le_valida_idade(){
+    int idade=0, count=0;
+    
+    do{
+        if(count>0){
+            printf("----------ERRO----------\n");
+            printf("Idade entre 16 e 26 anos\n");
+            printf("------------------------\n");
+        }
+        printf("Idade: ");
+        scanf("%d", &idade);
+        count++;
+    }while(idade <16 || idade >26);
+    return idade;
+}
 
 
 

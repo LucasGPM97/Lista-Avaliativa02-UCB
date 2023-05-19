@@ -23,8 +23,12 @@ Entrada:    Professor   {
 
 #include <stdio.h>
 #include <string.h>
+#define TAMESTU 15
+#define TAMDISC 2
+#define TAMPROF 3
 
 int le_valida_idade();
+char le_valida_titulacao();
 
 int main(){
 
@@ -40,31 +44,37 @@ int main(){
         int carga_horaria;
         char professor_responsavel[50];
     };
-/* 
+
     struct Estudante{
         char nome[50];
         char matricula[30];
         int idade;
+        char disciplina[50];
     };
- */
-    struct Professor professor[3];
-    struct Disciplina disciplina[2];
 
-    int i=0, opcao=0;
+    struct Professor professor[TAMPROF];
+    struct Disciplina disciplina[TAMDISC];
+    struct Estudante estudante[TAMESTU];
+
+    int i=0, opcao=0, qtd_alunos=0, materia1=0, materia2=0;
 
     printf("\t\tCadastro Professor\n");
 
-    for(i=0;i<3;i++){
+    for(i=0;i<TAMPROF;i++){
         printf("\nNome: ");
         scanf(" %[^\n]s", &professor[i].nome);
         printf("Funcional: ");
         scanf(" %[^\n]s", &professor[i].funcional);
-        printf("Titulacao\n");
-        printf("\t[1] Especialista\n");
-        printf("\t[2] Mestre\n");
-        printf("\t[3] Doutor\n");
-        printf("Opcao:   ");
-        scanf("%d", &opcao);
+        
+        do{
+            printf("Titulacao\n");
+            printf("\t[1] Especialista\n");
+            printf("\t[2] Mestre\n");
+            printf("\t[3] Doutor\n");
+            opcao =0;
+            printf("Escolha: ");
+            scanf("%d", &opcao);
+        }while(opcao != 1 && opcao != 2 && opcao != 3);
 
         switch (opcao){
         case 1 :
@@ -83,19 +93,22 @@ int main(){
 
     printf("\n\nCadastro Disciplina\n");
 
-    for(i=0;i<2;i++){
+    for(i=0;i<TAMDISC;i++){
         printf("Nome: ");
         scanf(" %[^\n]s", &disciplina[i].nome);
         printf("Codigo: ");
         scanf("%d", &disciplina[i].codigo);
         printf("Carga Horaria: ");
         scanf("%d", &disciplina[i].carga_horaria);
-        printf("Professor Responsavel\n");
-        printf("\t[1]%s\n", professor[0].nome);
-        printf("\t[2]%s\n", professor[1].nome);
-        printf("\t[3]%s\n", professor[2].nome);
-        printf("Escolha: ");
-        scanf("%d", &opcao);
+        
+        do{
+            printf("Professor Responsavel\n");
+            printf("\t[1]%s\n", professor[0].nome);
+            printf("\t[2]%s\n", professor[1].nome);
+            printf("\t[3]%s\n", professor[2].nome);
+            printf("Escolha: ");
+            scanf("%d", &opcao);
+        }while(opcao != 1 && opcao != 2);
         
         switch (opcao){
         case 1 :
@@ -114,7 +127,40 @@ int main(){
 
     printf("\n\nCadastro Estudante\n");
 
+    do{
 
+        printf("Nome: ");
+        scanf(" %[^\n]s", &estudante[i].nome);
+        estudante[i].idade = le_valida_idade();
+        
+        do{
+            printf("Matricula: ");
+            scanf(" %[^\n]s", &estudante[i].matricula);
+            printf("Disciplina\n");
+            printf("\t[1] - %s\n\t[2] - %s\n", disciplina[0].nome, disciplina[1].nome);
+            printf("Escolha: ");
+            scanf("%d", &opcao);
+        }while(opcao != 1 && opcao != 2);
+
+/*         switch (opcao){
+        case 1:
+            strcpy(estudante[i].disciplina, disciplina[0].nome);
+            materia1++;
+            break;
+        case 2:
+            strcpy(estudante[i].disciplina, disciplina[1].nome);
+            materia2++;
+            break;
+        }
+ */
+        do{
+            printf("Deseja continuar cadastrando\n");
+            printf("\t[1] Sim\n[2] Nao\n");
+            printf("Escolha: ");
+            scanf("%d", &opcao);
+        }while(opcao != 1 && opcao != 2);
+        qtd_alunos++;
+    }while(opcao != 2);
 
     return 0;
 }
@@ -134,8 +180,6 @@ int le_valida_idade(){
     }while(idade <16 || idade >26);
     return idade;
 }
-
-
 
 
 

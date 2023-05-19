@@ -56,7 +56,7 @@ int main(){
     struct Disciplina disciplina[TAMDISC];
     struct Estudante estudante[TAMESTU];
 
-    int i=0, opcao=0, qtd_alunos=0, materia1=0, materia2=0;
+    int i=0, opcao=0, qtd_alunos=0, materia1=0, materia2=0, numest=0;
 
     printf("\t\tCadastro Professor\n");
 
@@ -108,7 +108,7 @@ int main(){
             printf("\t[3]%s\n", professor[2].nome);
             printf("Escolha: ");
             scanf("%d", &opcao);
-        }while(opcao != 1 && opcao != 2);
+        }while(opcao != 1 && opcao != 2 && opcao != 3);
         
         switch (opcao){
         case 1 :
@@ -133,16 +133,36 @@ int main(){
         scanf(" %[^\n]s", &estudante[i].nome);
         estudante[i].idade = le_valida_idade();
         
-        do{
-            printf("Matricula: ");
-            scanf(" %[^\n]s", &estudante[i].matricula);
-            printf("Disciplina\n");
-            printf("\t[1] - %s\n\t[2] - %s\n", disciplina[0].nome, disciplina[1].nome);
-            printf("Escolha: ");
-            scanf("%d", &opcao);
+        printf("Matricula: ");
+        scanf(" %[^\n]s", &estudante[i].matricula);
+
+        do{ 
+            if(materia1<10 && materia2<10){ 
+                printf("Disciplina\n");
+                printf("\t[1] - %s\n\t[2] - %s\n", disciplina[0].nome, disciplina[1].nome);  
+                printf("Escolha: ");
+                scanf("%d", &opcao);
+            }else{
+                if (materia1==10){
+                    do{
+                        printf("Disciplina\n");
+                        printf("\t[2] - %s\n", disciplina[1].nome);  
+                        printf("Escolha: ");
+                        scanf("%d", &opcao);
+                    }while(opcao != 2);
+                }
+                if (materia2==10){
+                    do{
+                        printf("Disciplina\n");
+                        printf("\t[1] - %s\n", disciplina[0].nome);  
+                        printf("Escolha: ");
+                        scanf("%d", &opcao);
+                    }while(opcao != 1);
+                }
+            }
         }while(opcao != 1 && opcao != 2);
 
-/*         switch (opcao){
+        switch (opcao){
         case 1:
             strcpy(estudante[i].disciplina, disciplina[0].nome);
             materia1++;
@@ -152,15 +172,15 @@ int main(){
             materia2++;
             break;
         }
- */
+
         do{
             printf("Deseja continuar cadastrando\n");
-            printf("\t[1] Sim\n[2] Nao\n");
+            printf("\t[1] Sim\n\t[2] Nao\n");
             printf("Escolha: ");
             scanf("%d", &opcao);
         }while(opcao != 1 && opcao != 2);
         qtd_alunos++;
-    }while(opcao != 2);
+    }while(opcao != 2 && qtd_alunos != 15);
 
     return 0;
 }

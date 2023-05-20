@@ -26,37 +26,42 @@ Entrada:    Professor   {
 #define TAMESTU 15
 #define TAMDISC 2
 #define TAMPROF 3
+#define TAMMAT 10
+
+typedef struct{
+    char nome[50];
+    char funcional[20];
+    char titulacao[15];
+}Professor;
+
+typedef struct{
+    char nome[50];
+    int codigo;
+    int carga_horaria;
+    char professor_responsavel[50];
+}Disciplina;
+
+typedef struct{
+    char nome[50];
+    char matricula[30];
+    int idade;
+    Disciplina disciplina;
+}Estudante;
 
 int le_valida_idade();
 char le_valida_titulacao();
+void ordem_crescente(Estudante vetor[], Estudante sub, int tamanho_vetor);
+void ordem_decrescente(Estudante vetor[], Estudante sub, int tamanho_vetor);
+void imprime_vetor(Estudante vetor[], int tamanho_vetor, Disciplina disciplina[], int a);
 
 int main(){
 
-    struct Professor{
-        char nome[50];
-        char funcional[20];
-        char titulacao[15];
-    };
+    Professor professor[TAMPROF];
+    Disciplina disciplina[TAMDISC];
+    Estudante estudante[TAMESTU], sub;
 
-    struct Disciplina{
-        char nome[50];
-        int codigo;
-        int carga_horaria;
-        char professor_responsavel[50];
-    };
 
-    struct Estudante{
-        char nome[50];
-        char matricula[30];
-        int idade;
-        char disciplina[50];
-    };
-
-    struct Professor professor[TAMPROF];
-    struct Disciplina disciplina[TAMDISC];
-    struct Estudante estudante[TAMESTU];
-
-    int i=0, opcao=0, qtd_alunos=0, materia1=0, materia2=0, numest=0;
+    int i=0, opcao=0, qtd_alunos=0, materia1=0, materia2=0;
 
     printf("\t\tCadastro Professor\n");
 
@@ -126,10 +131,10 @@ int main(){
     }
 
     printf("\n\nCadastro Estudante\n");
-
+    i=0;
     do{
 
-        printf("Nome: ");
+        printf("\nNome: ");
         scanf(" %[^\n]s", &estudante[i].nome);
         estudante[i].idade = le_valida_idade();
         
@@ -164,11 +169,11 @@ int main(){
 
         switch (opcao){
         case 1:
-            strcpy(estudante[i].disciplina, disciplina[0].nome);
+            estudante[i].disciplina = disciplina[0];
             materia1++;
             break;
         case 2:
-            strcpy(estudante[i].disciplina, disciplina[1].nome);
+            estudante[i].disciplina = disciplina[1];
             materia2++;
             break;
         }
@@ -180,7 +185,29 @@ int main(){
             scanf("%d", &opcao);
         }while(opcao != 1 && opcao != 2);
         qtd_alunos++;
-    }while(opcao != 2 && qtd_alunos != 15);
+        i++;
+    }while(opcao != 2 && qtd_alunos != TAMESTU);
+
+
+    //Ordenamento vetor estudantes Disciplina 1
+    ordem_crescente(estudante, sub, qtd_alunos);
+    
+    // Relatorio Disciplina 1
+    printf("\n-------------------------------------------------------------\n");
+    printf("              Relatoria da Disciplina %s\n", disciplina[0].nome);
+    imprime_vetor(estudante, qtd_alunos, disciplina, 0);
+    printf("\n-------------------------------------------------------------\n");    
+    
+    //Ordenamento vetor estudantes Disciplina 2
+    ordem_decrescente(estudante, sub, qtd_alunos);
+    
+
+
+    //Relatorio Disciplina 2
+    printf("\n-------------------------------------------------------------\n");
+    printf("              Relatoria da Disciplina %s\n", disciplina[1].nome);
+    imprime_vetor(estudante, qtd_alunos, disciplina, 1);
+    printf("\n-------------------------------------------------------------\n");
 
     return 0;
 }
@@ -201,7 +228,47 @@ int le_valida_idade(){
     return idade;
 }
 
+void ordem_crescente(Estudante vetor[], Estudante sub, int tamanho_vetor){
+    int i=0,j=0;
+    
+    for(i=0;i<tamanho_vetor;i++){
+        for(j=0;j<tamanho_vetor-i-1;j++){
+            if(vetor[j].idade>vetor[j+1].idade){
+                sub = vetor[j];
+                vetor[j] = vetor[j+1];
+                vetor[j+1] = sub;
+            }
+        }
+    }
 
+}
+
+void ordem_decrescente(Estudante vetor[], Estudante sub, int tamanho_vetor){
+    int i=0,j=0;
+    
+    for(i=0;i<tamanho_vetor;i++){
+        for(j=0;j<tamanho_vetor-i-1;j++){
+            if(vetor[j].idade<vetor[j+1].idade){
+                sub = vetor[j];
+                vetor[j] = vetor[j+1];
+                vetor[j+1] = sub;
+            }
+        }
+    }
+
+}
+
+void imprime_vetor(Estudante vetor[], int tamanho_vetor, Disciplina disciplina[], int a){
+    int i=0;
+
+    for(i=0;i<tamanho_vetor;i++){
+        if(strcmp(vetor[i].disciplina.nome, disciplina[a].nome) == 0){
+            printf("Codigo Disciplina: %d\tProfessor: %s\t Estudante: %s\t Idade: %d\n", vetor[i].disciplina.codigo, vetor[i].disciplina.professor_responsavel, vetor[i].nome, vetor[i].idade);
+        }
+    }
+
+
+}
 
 
 

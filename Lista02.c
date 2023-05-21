@@ -96,10 +96,11 @@ int main(){
         
     }
 
-    printf("\n\nCadastro Disciplina\n");
+    system("cls");
+    printf("\n\n\tCadastro Disciplina\n");
 
     for(i=0;i<TAMDISC;i++){
-        printf("Nome: ");
+        printf("\nNome: ");
         scanf(" %[^\n]s", &disciplina[i].nome);
         printf("Codigo: ");
         scanf("%d", &disciplina[i].codigo);
@@ -130,11 +131,12 @@ int main(){
                 
     }
 
-    printf("\n\nCadastro Estudante\n");
+    system("cls");
+    printf("\n\n\tCadastro Estudante\n");
     i=0;
     do{
 
-        printf("\nNome: ");
+        printf("\n\nNome: ");
         scanf(" %[^\n]s", &estudante[i].nome);
         estudante[i].idade = le_valida_idade();
         
@@ -192,6 +194,7 @@ int main(){
     //Ordenamento vetor estudantes Disciplina 1
     ordem_crescente(estudante, sub, qtd_alunos);
     
+    system("cls");
     // Relatorio Disciplina 1
     printf("\n-------------------------------------------------------------\n");
     printf("              Relatoria da Disciplina %s\n", disciplina[0].nome);

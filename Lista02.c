@@ -26,7 +26,6 @@ Entrada:    Professor   {
 #define TAMESTU 15
 #define TAMDISC 2
 #define TAMPROF 3
-#define TAMMAT 10
 
 typedef struct{
     char nome[50];
@@ -197,7 +196,7 @@ int main(){
     system("cls");
     // Relatorio Disciplina 1
     printf("\n-------------------------------------------------------------\n");
-    printf("              Relatoria da Disciplina %s\n", disciplina[0].nome);
+    printf("              Relatorio da Disciplina %s\n", disciplina[0].nome);
     imprime_vetor(estudante, qtd_alunos, disciplina, 0);
     printf("\n-------------------------------------------------------------\n");    
     
@@ -208,7 +207,7 @@ int main(){
 
     //Relatorio Disciplina 2
     printf("\n-------------------------------------------------------------\n");
-    printf("              Relatoria da Disciplina %s\n", disciplina[1].nome);
+    printf("              Relatorio da Disciplina %s\n", disciplina[1].nome);
     imprime_vetor(estudante, qtd_alunos, disciplina, 1);
     printf("\n-------------------------------------------------------------\n");
 

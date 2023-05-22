@@ -37,7 +37,7 @@ typedef struct{
     char nome[50];
     int codigo;
     int carga_horaria;
-    char professor_responsavel[50];
+    Professor professor;
 }Disciplina;
 
 typedef struct{
@@ -117,14 +117,14 @@ int main(){
         
         switch (opcao){
         case 1 :
-            strcpy(disciplina[i].professor_responsavel, professor[0].nome);
+            disciplina[i].professor = professor[0];
             break;
         
         case 2 :
-            strcpy(disciplina[i].professor_responsavel, professor[1].nome);
+            disciplina[i].professor = professor[1];
             break;
         case 3 :
-            strcpy(disciplina[i].professor_responsavel, professor[2].nome);
+            disciplina[i].professor = professor[2];
             break;
         }
                 
@@ -265,7 +265,7 @@ void imprime_vetor(Estudante vetor[], int tamanho_vetor, Disciplina disciplina[]
 
     for(i=0;i<tamanho_vetor;i++){
         if(strcmp(vetor[i].disciplina.nome, disciplina[a].nome) == 0){
-            printf("Codigo Disciplina: %d\tProfessor: %s\t Estudante: %s\t Idade: %d\n", vetor[i].disciplina.codigo, vetor[i].disciplina.professor_responsavel, vetor[i].nome, vetor[i].idade);
+            printf("Codigo Disciplina: %d\tProfessor: %s\t Estudante: %s\t Idade: %d\n", vetor[i].disciplina.codigo, vetor[i].disciplina.professor.nome, vetor[i].nome, vetor[i].idade);
         }
     }
 
